@@ -1,46 +1,84 @@
 //import logo from './logo.svg';
+import Alert from './Alert';
 import './App.css';
+//import About from './Components/About';
+import Navbar from './Components/Navbar';
+import TextForm from './Components/TextForm';
+import React, { useState } from 'react';
+// import {
+//   BrowserRouter, Route, Routes} from "react-router-dom";
+
 
 
 function App() {
+  const [mode, setMode] = useState('light'); //Whether dark mode is enabled or not
+  const [alert, setAlert] = useState(null);
+
+  const showAlert = (message, type) => {
+    setAlert({
+      msg: message,
+      type: type,
+
+    })
+    setTimeout(() => {
+      setAlert(null);
+    }, 1500)
+  }
+  const toggleMode = () => {
+    if (mode === 'light') {
+      setMode('dark');
+      document.body.style.backgroundColor = '#042743';
+      showAlert("Dark mode has been enabled", "success");
+      document.title = 'Myapp - Dark Mode';
+      //      setInterval(() =>{
+      // document.title = 'Myapp is Amazing Mode';
+      //      }, 2000);
+
+      //     setInterval(() =>{
+      // document.title = 'Install Myapp Now';
+      //      }, 1500);
+    }
+    else {
+      setMode('light');
+      document.body.style.backgroundColor = 'white';
+      showAlert("Light mode has been enabled", "success");
+      document.title = 'Myapp - Light Mode';
+    }
+  }
   return (
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid">
-          <a className="navbar-brand" href="/">Navbar</a>
-          <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span className="navbar-toggler-icon"></span>
-          </button>
-          <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="/">Home</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="/">Link</a>
-              </li>
-              <li className="nav-item dropdown">
-                <a className="nav-link dropdown-toggle" href="/" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                  Dropdown
-                </a>
-                <ul className="dropdown-menu">
-                  <li><a className="dropdown-item" href="/">Action</a></li>
-                  <li><a className="dropdown-item" href="/">Another action</a></li>
-                  <li><hr className="dropdown-divider" /></li>
-                  <li><a className="dropdown-item" href="/">Something else here</a></li>
-                </ul>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link disabled"  href="/" aria-disabled="true" >Disabled</a>
-              </li>
-            </ul>
-            <form className="d-flex" role="search">
-              <input className="form-control me-2" type="search" placeholder="Search" aria-label="Search" />
-              <button className="btn btn-outline-success" type="submit">Search</button>
-            </form>
-          </div>
-        </div>
-      </nav>
+     <>
+    {/* <BrowserRouter> */}
+   
+    
+        <Navbar title="Myapp" aboutText="About us" mode={mode} toggleMode={toggleMode} />
+        {/* <Navbar title="Myapp"/> */}
+        <Alert alert={alert} />
+        <div className="container my-3"></div>
+          {/* <Routes> */}
+            {/* /users --> Components 1
+            /users/home --> --> Components 2 */}
+            {/* <Route  exact path ="/about" element={<About/>}/>
+            </Routes>
+          <Routes> */}
+            <TextForm showAlert={showAlert} heading="Enter the text to analyze below" mode={mode} />
+            {/* <Route exact path="/" element={
+            } /> </Routes> </BrowserRouter> */}
+
+          
+
+              
+          
+       
+    
+
+
+
+    </>
   );
 }
 
 export default App;
+
+
+
+
